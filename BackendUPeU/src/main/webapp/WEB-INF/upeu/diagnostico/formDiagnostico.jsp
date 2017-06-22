@@ -33,40 +33,41 @@
                     <tr>
                         <td><fm:label path="descripcion">Descripcion</fm:label> </td>                        
                         <td><fm:input path="descripcion" size="60" /></td>
-                    </tr>                                     
+                    </tr>              
 
                     <tr>
-                        <td><fm:label path="idPaciente">Paciente</fm:label> </td> 
-                        <td>
-                    <fm:select path="idPaciente" cssClass="myinput"  >
-                        <fm:option value=""><c:out value="--------------------"/> </fm:option>
-                        <c:if test="${!empty ListPaciente}">
-                        <c:forEach var="pa"  items="${ListPaciente}">
-                        <fm:option value="${pa.idPaciente}" >
-                            <c:out value="${pa.idPersona.nombres}"/>
-                        </fm:option>
-                        </c:forEach>
-                        </c:if>
-                    </fm:select> 
-                            </td>
-                    </tr>   
-                    
+                        <td><fm:label path="otros">Otros</fm:label> </td>                        
+                        <td><fm:input path="otros" size="60" /></td>
+                    </tr>  
+
                     <tr>
-                        <td><fm:label path="idDoctor">Doctor</fm:label> </td> 
-                        <td>
-                    <fm:select path="idDoctor" cssClass="myinput"  >
-                        <fm:option value=""><c:out value="--------------------"/> </fm:option>
-                        <c:if test="${!empty ListDoctor}">
-                        <c:forEach var="pa"  items="${ListDoctor}">
-                        <fm:option value="${pa.idDoctor}" >
-                            <c:out value="${pa.idPersona.nombres}"/>
-                        </fm:option>
-                        </c:forEach>
-                        </c:if>
-                    </fm:select> 
-                            </td>
-                    </tr>                     
-                    
+                        <td><fm:label path="idPaciente.idPaciente">Paciente</fm:label> </td> 
+                            <td>
+                            <fm:select path="idPaciente.idPaciente" cssClass="myinput"  >
+                                <fm:option value=""><c:out value="--------------------"/> </fm:option>
+                                <c:if test="${!empty ListPaciente}">
+                                    <c:forEach var="pa"  items="${ListPaciente}">
+                                        <fm:option value="${pa.idPaciente}" >
+                                            <c:out value="${pa.idPersona.nombres}"/>
+                                        </fm:option>
+                                    </c:forEach>
+                                </c:if>
+                            </fm:select> 
+                        </td>
+                    </tr>   
+
+
+
+                    <tr>
+                        <td><fm:label path="idDoctor.idDoctor">Doctor</fm:label> </td> 
+                            <td>
+                            <fm:select path="idDoctor.idDoctor"  cssClass="myinput" >
+                                <fm:option value=""><c:out value="--------------------"/> </fm:option>
+                                <fm:options items="${ListDoctor}" itemValue="idDoctor" itemLabel="idPersona.nombres"/>
+                            </fm:select>
+                        </td>
+                    </tr>  
+
                     <tr>                        
                         <td colspan="2"><input type="submit" value="Enviar" > </td>
                     </tr>

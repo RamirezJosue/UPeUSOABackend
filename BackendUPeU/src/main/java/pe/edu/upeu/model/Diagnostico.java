@@ -5,40 +5,46 @@
  */
 package pe.edu.upeu.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author David
+ * @author JOSUE
  */
 @Entity
 @Table(name = "diagnostico")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Diagnostico.findAll", query = "SELECT d FROM Diagnostico d")})
+    @NamedQuery(name = "Diagnostico.findAll", query = "SELECT d FROM Diagnostico d")
+    , @NamedQuery(name = "Diagnostico.findByIdDiagnostico", query = "SELECT d FROM Diagnostico d WHERE d.idDiagnostico = :idDiagnostico")
+    , @NamedQuery(name = "Diagnostico.findByEstado", query = "SELECT d FROM Diagnostico d WHERE d.estado = :estado")
+    , @NamedQuery(name = "Diagnostico.findByFecha", query = "SELECT d FROM Diagnostico d WHERE d.fecha = :fecha")
+    , @NamedQuery(name = "Diagnostico.findByDescripcion", query = "SELECT d FROM Diagnostico d WHERE d.descripcion = :descripcion")
+    , @NamedQuery(name = "Diagnostico.findByModeloEstudio", query = "SELECT d FROM Diagnostico d WHERE d.modeloEstudio = :modeloEstudio")
+    , @NamedQuery(name = "Diagnostico.findByOtros", query = "SELECT d FROM Diagnostico d WHERE d.otros = :otros")})
 public class Diagnostico implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idDiagnostico")
     private Integer idDiagnostico;
     @Basic(optional = false)
@@ -70,9 +76,6 @@ public class Diagnostico implements Serializable {
     @JoinColumn(name = "idPaciente", referencedColumnName = "idPaciente")
     @ManyToOne(optional = false)
     private Paciente idPaciente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDiagnostico")
-    @JsonIgnore
-    private List<DetalleDiagnostico> detalleDiagnosticoList;
 
     public Diagnostico() {
     }
@@ -153,14 +156,6 @@ public class Diagnostico implements Serializable {
         this.idPaciente = idPaciente;
     }
 
-    public List<DetalleDiagnostico> getDetalleDiagnosticoList() {
-        return detalleDiagnosticoList;
-    }
-
-    public void setDetalleDiagnosticoList(List<DetalleDiagnostico> detalleDiagnosticoList) {
-        this.detalleDiagnosticoList = detalleDiagnosticoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -183,7 +178,9 @@ public class Diagnostico implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.edu.upeu.model.Diagnostico[ idDiagnostico=" + idDiagnostico + " ]";
+        return "Diagnostico{" + "idDiagnostico=" + idDiagnostico + ", estado=" + estado + ", fecha=" + fecha + ", descripcion=" + descripcion + ", modeloEstudio=" + modeloEstudio + ", otros=" + otros + ", idDoctor=" + idDoctor + ", idPaciente=" + idPaciente + '}';
     }
+
+    
     
 }
